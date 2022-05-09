@@ -3,7 +3,7 @@ create list:
 List *ptr = newlist(SIZE);
 forange:
 for (int i = 0;i < size(ptr);++i) {
-  // INT*   element(ptr, i);
+  // INT**   element(ptr, i);
 }
 print:
 VOID print(ptr);
