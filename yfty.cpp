@@ -279,7 +279,7 @@ int main(int argc, const char **argv[])
     sort_vstavk_binary(ptr);
     print(ptr);
     Free(ptr);
-}*/
+}*/ */
 // yfty.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
