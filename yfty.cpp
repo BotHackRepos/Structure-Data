@@ -1,4 +1,4 @@
-﻿// yfty.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+// yfty.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
 #include <iostream>
@@ -35,8 +35,13 @@ struct List {
 
 
 
+
 bool is_empty(List* ptr) {
     return (ptr->next == nullptr && ptr->num == 0);
+}
+
+bool is_empty_ptr(List* ptr) {
+    return (ptr == nullptr);
 }
 
 int size(List *ptr) {
@@ -111,14 +116,10 @@ void Free(List* ptr) {
         return;
     }
     int const sizelist = size(ptr);
-    List** pptr = new List * [sizelist];
-    for (int i = 0; i < sizelist; ++i) {
-        pptr[i] = getnode(ptr, i);
+    for (int i = sizelist - 2; i >= 0; ++i) {
+        delete getnode(ptr, i)->next;
     }
-    for (int i = 0; i < sizelist; ++i) {
-        delete &pptr[i][0];
-    }
-    delete[] pptr;
+    delete ptr;
 }
 
 void swap(int& num1, int &num2) {
@@ -154,6 +155,14 @@ void push_back(List* ptr, int num) {
     ptrt->next = new List;
     ptrt->next->num = num;
 }
+/* template <std::size_t n> List* newList(const int(&arr)[n]) {
+    List* ptr = new List;
+    for (int i = 1; i < n; ++i) {
+        getnode(ptr, i - 1)->init(arr[i - 1], new List);
+    }
+    getnode(ptr, size(ptr) - 1)->num = arr[n - 1];
+    return ptr;
+}*/
 
 void print(List* ptr) {
     for (int i = 0; i < size(ptr); ++i) {
@@ -257,18 +266,50 @@ void sort_vstavk_binary(List* ptr) {
     }
 }
 
+List* twox_search(List * ptr, int number) {
+    sort_vstavk_binary(ptr);
+    const int beginb = ptr->num;
+    const int middle = *element(ptr, size(ptr) / 2);
+    const int high = *element(ptr, size(ptr));
+    if (number == beginb) {
+        return begin(ptr);
+    }
+    if (number == high) {
+        return getnode(ptr, size(ptr));
+    }
+    if (number == middle) {
+        return getnode(ptr, size(ptr) / 2);
+    }
+    if (number > middle) {
+        for (int i = size(ptr) / 2 + 1; i < size(ptr) - 1; ++i) {
+            if (*element(ptr, i) == number) {
+                return getnode(ptr, i);
+            }
+        }
+        return nullptr;
+    }
+    else {
+        for (int i = 1; i < size(ptr) / 2; ++i) {
+            if (*element(ptr, i) == number) {
+                return getnode(ptr, i);
+            }
+            return nullptr;
+        }
+    }
+    return nullptr;
+}
 
 
 
 
 int main(int argc, const char **argv[])
 {
-    List* ptr = newlist(1);
-    push_back(ptr, 8);
-    push_back(ptr, 7);
-    push_back(ptr, 9);
+    List* ptr = newlist(4);
+    for (int i = 0; i < 4; ++i) {
+        *element(ptr, i) = i;
+    }
     print(ptr);
-    sort_vstavk_binary(ptr);
+    push_front(ptr, 8);
     print(ptr);
     Free(ptr);
 }
