@@ -154,14 +154,6 @@ void push_back(List* ptr, int num) {
     ptrt->next = new List;
     ptrt->next->num = num;
 }
-/* template <std::size_t n> List* newList(const int(&arr)[n]) {
-    List* ptr = new List;
-    for (int i = 1; i < n; ++i) {
-        getnode(ptr, i - 1)->init(arr[i - 1], new List);
-    }
-    getnode(ptr, size(ptr) - 1)->num = arr[n - 1];
-    return ptr;
-}*/
 
 void print(List* ptr) {
     for (int i = 0; i < size(ptr); ++i) {
