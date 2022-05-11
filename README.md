@@ -1,4 +1,5 @@
 # Structure-Data
+Writen in C/C++
 create list:
 List *ptr = newlist(SIZE);
 forange:
